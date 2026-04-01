@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <h3>Match Setup</h3>
+
+  <input class="form-control mb-2" placeholder="Team A" [(ngModel)]="teamA">
+  <input class="form-control mb-2" placeholder="Team B" [(ngModel)]="teamB">
+
+  <input 
+  type="number" 
+  class="form-control mb-2" 
+  placeholder="Enter Overs"
+  [(ngModel)]="overs"
+  min="1"
+/>
+
+  <select class="form-select mb-3" [(ngModel)]="ruleType">
+    <option value="gully">Gully Cricket</option>
+    <option value="international">International</option>
+  </select>
+
+  <button class="btn btn-success" (click)="startMatch()">Start</button>
+</div>

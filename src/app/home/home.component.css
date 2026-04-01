@@ -1,0 +1,109 @@
+/* 🌙 Dark Card */
+.ipl-card {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+/* 🏏 Score */
+.score-section h1 {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+/* 🎯 Target Box */
+.players-box {
+  background: #111827;
+  padding: 10px;
+  border-radius: 10px;
+  min-width: 150px;
+}
+
+.target-box {
+  background: #1f2937;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.bowler-box {
+  background: #111827;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.need {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+/* 🔘 Buttons */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.run-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #334155;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.run-btn:hover {
+  transform: scale(1.1);
+}
+
+/* 🎯 Special Buttons */
+.four { background: #2563eb; }
+.six { background: #16a34a; }
+.wicket { background: #dc2626; }
+.wide { background: #9333ea; }
+
+.undo-btn {
+  flex: 10%;
+  background: #f59e0b;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.run-btn-wk{
+  background: #dc2626;
+  flex: 100%;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* 🔴 Balls */
+.ball {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%;
+  background: #1e293b;
+  text-align: center;
+  line-height: 40px;
+  font-weight: bold;
+}
+
+/* 🎨 Ball Colors */
+.four-ball { background: #2563eb; }
+.six-ball { background: #16a34a; }
+.wicket-ball { background: #dc2626; }
+
+.small {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}

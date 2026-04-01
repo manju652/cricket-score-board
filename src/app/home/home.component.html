@@ -1,0 +1,167 @@
+<div *ngIf="viewMode === 'live' || viewMode === 'scorecard'" class="ipl-card mt-5">
+
+   <!-- LEFT: Match Title -->
+    <h5 class="mb-0">
+     <h5>{{ match?.teamA }} vs {{ match?.teamB }}</h5>
+    </h5>
+
+    <!-- RIGHT: Toggle Buttons -->
+    <div>
+      <button 
+        class="btn btn-sm me-2"
+        [ngClass]="viewMode === 'live' ? 'btn-success' : 'btn-outline-light'"
+        (click)="viewMode='live'">
+        Live
+      </button>
+
+      <button 
+        class="btn btn-sm"
+        [ngClass]="viewMode === 'scorecard' ? 'btn-primary' : 'btn-outline-light'"
+        (click)="viewMode='scorecard'">
+        Scorecard
+      </button>
+    </div>
+
+  <!-- 🏏 Score -->
+  <div class="score-section text-center">
+    <h1>{{match.score}} / {{match.wickets}}</h1>
+    <p>Overs: {{ oversDisplay }}</p>
+    <p>CRR: {{ currentRunRate | number:'1.2-2' }}</p>
+  </div>
+
+  <!-- 🎯 Target + Need Runs -->
+  <div class="d-flex justify-content-between mt-3">
+
+  <!-- 🏏 LEFT SIDE (Batsmen) -->
+  <div class="players-box">
+
+    <div>
+      <strong>{{ match.striker.name }} *</strong><br>
+      {{ match.striker.runs }} ({{ match.striker.balls }})
+    </div>
+
+    <div class="mt-2">
+      <strong>{{ match.nonStriker.name }}</strong><br>
+      {{ match.nonStriker.runs }} ({{ match.nonStriker.balls }})
+    </div>
+
+  </div>
+
+  <!-- 🎯 RIGHT SIDE (Target + Bowler) -->
+  <div class="text-end">
+
+    <!-- Target -->
+    <div *ngIf="match.innings === 2" class="target-box mb-2">
+      <p class="mb-0">Target: {{ match.target }}</p>
+      <p class="mb-0">
+        Need {{ match.target - match.score }} runs in 
+      {{ (match.totalOvers * 6) - (match.currentOver * 6 + match.balls) }} balls
+      </p>
+    </div>
+
+    <!-- Bowler -->
+    <div class="bowler-box">
+      <strong>{{ match.bowler?.name || 'Bowler' }}</strong><br>
+      {{ match.bowler?.balls ? (match.bowler.balls / 6 | number:'1.0-1') : '0.0' }} overs
+    </div>
+
+  </div>
+
+</div>
+
+  <!-- 🔘 Buttons -->
+  <div class="buttons">
+    <button class="run-btn" (click)="addRuns(0)">0</button>
+    <button class="run-btn" (click)="addRuns(1)">1</button>
+    <button class="run-btn" (click)="addRuns(2)">2</button>
+    <button class="run-btn" (click)="addRuns(3)">3</button>
+    <button class="run-btn four" (click)="addRuns(4)">4</button>
+    <button class="run-btn six" (click)="addRuns(6)">6</button>
+    <button class="run-btn wide" (click)="addWide()">Wd</button>
+    <button class="undo-btn" (click)="undo()">Undo</button>
+    <button class="run-btn-wk wicket" (click)="wicket()">Wicket</button>
+  </div>
+
+  <!-- 🔴 Current Over -->
+  <div class="mt-3">
+    <strong>Current Over</strong>
+    <div>
+      <span 
+        *ngFor="let b of currentOverBalls"
+        class="ball"
+        [ngClass]="{
+          'four-ball': b=='4',
+          'six-ball': b=='6',
+          'wicket-ball': b=='W'
+        }">
+        {{b}}
+      </span>
+    </div>
+  </div>
+
+  <!-- 📊 Previous Overs -->
+  <div *ngFor="let over of oversHistory; let i = index" class="mt-2">
+    <strong>Over {{i+1}}</strong>
+    <div>
+      <span *ngFor="let b of over" class="ball small">{{b}}</span>
+    </div>
+  </div>
+
+
+  <div *ngIf="viewMode === 'scorecard'">
+
+  <!-- Team A -->
+  <h5>{{ match.teamA }}</h5>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>R</th>
+        <th>B</th>
+        <th>4s</th>
+        <th>6s</th>
+        <th>SR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of match.teamAPlayers">
+        <td>{{ p.name }}</td>
+        <td>{{ p.runs }}</td>
+        <td>{{ p.balls }}</td>
+        <td>{{ p.fours }}</td>
+        <td>{{ p.sixes }}</td>
+        <td>{{ (p.balls ? (p.runs / p.balls * 100) : 0) | number:'1.0-0' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Team B -->
+  <h5 class="mt-4">{{ match.teamB }}</h5>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>R</th>
+        <th>B</th>
+        <th>4s</th>
+        <th>6s</th>
+        <th>SR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of match.teamBPlayers">
+        <td>{{ p.name }}</td>
+        <td>{{ p.runs }}</td>
+        <td>{{ p.balls }}</td>
+        <td>{{ p.fours }}</td>
+        <td>{{ p.sixes }}</td>
+        <td>{{ (p.balls ? (p.runs / p.balls * 100) : 0) | number:'1.0-0' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+</div>
